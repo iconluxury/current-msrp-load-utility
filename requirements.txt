@@ -1,0 +1,8 @@
+pandas
+sqlalchemy
+pyodbc
+fastapi
+uvicorn
+requests
+python-dotenv
+urllib3

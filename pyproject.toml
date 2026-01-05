@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "current-msrp-load-utility"
+version = "0.1.0"
+description = "Current MSRP Load Utility"
+requires-python = ">=3.9"
+dependencies = [
+    "pandas",
+    "sqlalchemy",
+    "pyodbc",
+    "fastapi",
+    "uvicorn",
+    "requests",
+    "python-dotenv",
+    "urllib3",
+]
