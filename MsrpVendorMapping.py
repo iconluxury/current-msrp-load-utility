@@ -8,7 +8,8 @@ conn = "DRIVER={ODBC Driver 17 for SQL Server};Server=35.172.243.170;Database=lu
 global engine
 engine = create_engine("mssql+pyodbc:///?odbc_connect=%s" % conn)
 
-brandID = input('''
+if __name__ == "__main__":
+    brandID = input('''
 enter BrandId:  
 ''')
 
@@ -830,15 +831,16 @@ def sql_execute(sql):
         connection.commit()
         connection.close()
     else:
-        print('sql empty for brandi' + brandID)
+        print('sql empty')
 
 
 
-initialize_load(brandID)
-sql = create_sql(brandID)
-sql_execute(sql)
-validate_sql = validate_temp_load(brandID)
-sql_execute(validate_sql)
+if __name__ == "__main__":
+    initialize_load(brandID)
+    sql = create_sql(brandID)
+    sql_execute(sql)
+    validate_sql = validate_temp_load(brandID)
+    sql_execute(validate_sql)
 
 
 
