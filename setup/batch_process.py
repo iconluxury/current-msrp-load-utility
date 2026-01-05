@@ -155,8 +155,8 @@ def process_job(job):
 
         # 3. Transform and Validate
         try:
-            # Initialize Temp (Clean dest)
-            MsrpVendorMapping.initialize_load(brand_id)
+            # Skip Initialize Temp to aggregate data instead of clearing
+            # MsrpVendorMapping.initialize_load(brand_id)
             
             # Transform
             sql = MsrpVendorMapping.create_sql(brand_id)
@@ -182,8 +182,8 @@ def process_job(job):
 def main():
     print("Starting batch process...")
     
-    # Clear Temp table globally at start, though process_brand also clears specific brand
-    clear_temp_table() 
+    # Data is aggregated in utb_RetailLoadTemp, so we do not clear it at start.
+    # clear_temp_table() 
 
     jobs = get_jobs_to_process()
     
