@@ -31,6 +31,18 @@ def get_brands_to_process():
         print(f"Error fetching brands: {e}")
         return []
 
+def clean_initial_load(brand_id):
+    print(f"Cleaning Initial Load for Brand ID: {brand_id}")
+    try:
+        connection = engine.connect()
+        sql = text(f"DELETE FROM utb_RetailLoadInitial WHERE BrandID = {brand_id}")
+        connection.execute(sql)
+        connection.commit()
+        connection.close()
+        print(f"Cleared Staging for Brand ID: {brand_id}")
+    except Exception as e:
+        print(f"Error cleaning Initial Load for {brand_id}: {e}")
+
 def process_brand(brand_id):
     print(f"Processing Brand ID: {brand_id}")
     try:
@@ -48,6 +60,9 @@ def process_brand(brand_id):
         validate_sql = MsrpVendorMapping.validate_temp_load(brand_id)
         MsrpVendorMapping.sql_execute(validate_sql)
         
+        # 5. Clear Staging Data
+        clean_initial_load(brand_id)
+
         print(f"Successfully processed Brand ID: {brand_id}")
         
     except Exception as e:
